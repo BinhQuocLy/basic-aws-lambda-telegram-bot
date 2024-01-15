@@ -1,11 +1,51 @@
+import json
+import os
+import requests
+
+BOT_TOKEN = os.environ.get('TOKEN')
+BOT_CHAT_ID = os.environ.get('CHATID')
+BASE_URL = 'https://api.telegram.org/bot' + BOT_TOKEN
+
+# ============================================================
+# TELEGRAM API
+# ============================================================
+def sendMessage(text, mode=""):
+    requests.post(BASE_URL + '/sendMessage', data={
+        "chat_id": BOT_CHAT_ID,
+        "text": text,
+    })
+
+
+def sendPhoto(photo):
+    requests.post(BASE_URL + '/sendPhoto', data={
+        "chat_id": BOT_CHAT_ID,
+        "photo": photo,
+    })
+
+# ============================================================
+# COMMAND HANDLERS
+# ============================================================
+def handle_command1(args):
+    sendMessage(args)
+
+
+def handle_command2(args):
+    sendMessage(args)
+
+
+def handle_command3(args):
+    sendMessage(args)
+
+# ============================================================
+# MAIN
+# ============================================================
 def lambda_handler(event, context):
     try:
         messageContent = json.loads(event["body"])["message"]["text"]
         commandMap = {
-            "/full": lambda _: handle_full(event["body"]),
-            "/time": lambda _: handle_time(),
-            "/random_image": lambda x: handle_random_image(x),
-            "/random_video": lambda x: handle_random_video(x),
+            "/command1": lambda x: handle_command1(x),
+            "/command2": lambda x: handle_command2(x),
+            "/command3": lambda x: handle_command3(x),
         }
 
         tokens = messageContent.split(' ')
@@ -17,9 +57,9 @@ def lambda_handler(event, context):
         if command in commandMap.keys():
             commandMap[command](args)
         else:
-            telegram.sendMessage(f'Command {messageContent} not found!')
+            sendMessage(f'Command {messageContent} not found!')
     except Exception as ex:
-        telegram.sendMessage(str(ex))
+        sendMessage(str(ex))
 
     return {
         'statusCode': 200,
