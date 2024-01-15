@@ -51,7 +51,7 @@ Now you have 2 important secrets: `TOKEN` and `CHAT_ID`.
 
 ## 3. Hook your Telegram bot to your AWS Lambda function
 **Step 1 - Get your function URL**
-- In the *Your-Function* page $\rightarrow$ Configuration tab $\rightarrow$ Fucntion URL $\rightarrow$ Create function URL:
+- In the *Your-Function* page $\rightarrow$ Configuration tab $\rightarrow$ Function URL $\rightarrow$ Create function URL:
   - Auth type: NONE
 
 **Step 2 - Set webhook**
