@@ -1,4 +1,4 @@
-# Basic AWS Lambda - Telegram Bot
+# Basic, AWS Lambda + Telegram Bot
 
 A basic serverless solution for making a telegram bot, without command line.
 
